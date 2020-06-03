@@ -1,13 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Deploy Website
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
-  pull_request:
     branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -24,11 +22,14 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Install NodeJS
-      run: actions/setup-node@v2-beta
-
-    # Runs a set of commands using the runners shell
+      uses: actions/setup-node@v2-beta
+      with: 
+        node-version: 12
     - name: Install Surge
-      run: npm install --global surge
-      
+      run: npm install -g surge
     - name: Run Surge
-      run: surge ./ bootcamp2020.surge.sh --token ${{secrets.SURGE_KEY}}
+      run: surge ./ bootcamp2020on.surge.sh --token ${{secrets.SURGE_TOKEN}}
+
+
+
+
